@@ -21,7 +21,9 @@ class Ball():
 		
 		self.collide_rects = g_const.collide_rects
 		
-		self.vel_mag = g_const.b_vel_mag
+		self.vel_mag = g_const.b_vel_mag_frame
+		# self.vel_mag = g_const.b_vel_mag_sec
+		
 		self.angle_range = g_const.b_angle_range
 		
 		self.b_velx = self.b_vely = 0

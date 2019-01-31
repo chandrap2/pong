@@ -1,7 +1,7 @@
 import pygame as pyg
 
 # general game constants
-fps = 20 # desired framerate
+fps = 60 # desired framerate
 frame_length = 1.0 / fps # in seconds
 
 screen_size = w, h = 320, 240
@@ -18,8 +18,8 @@ winning_score = 5
 """ player constants """
 p_w = 17
 p_h = 75
-p_speed = 5 # pixels/frame
-# p_speed = 5 * fps = 300 # pixels/sec
+p_speed_frame = 5 # pixels/frame
+p_speed_sec = p_speed_frame * fps # 300 pixels/sec
 
 p_p1_won_id = 1
 p_p2_won_id = 2
@@ -33,8 +33,8 @@ top_rect = pyg.Rect(0, -5, screen_dim.w, 5)
 bottom_rect = pyg.Rect(0, screen_dim.h, screen_dim.w, 5)
 collide_rects = [top_rect, bottom_rect]
 
-b_vel_mag = 9 # pixels/frame
-# b_vel_mag = 9 * fps = 540 # pixels/sec
+b_vel_mag_frame = 8 # pixels/frame
+b_vel_mag_sec = b_vel_mag_frame * fps # 360 pixels/sec
 b_angle_range = 60 # max angle between normal of player collided against and vel of ball
 
 b_player_coll_top_id = 1

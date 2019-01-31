@@ -39,8 +39,9 @@ def main():
 				if event.type == pyg.QUIT:
 					sys.exit()
 			
-			p1.update(events)
-			p2.update(events)
+			dt += time.time() - start
+			p1.update(events, dt)
+			p2.update(events, dt)
 			ball.update(p1, p2, events)
 			
 			# draw background and objects
