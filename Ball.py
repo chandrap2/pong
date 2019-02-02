@@ -21,12 +21,14 @@ class Ball():
 		
 		self.collide_rects = g_const.collide_rects
 		
-		self.vel_mag = g_const.b_vel_mag_frame
-		# self.vel_mag = g_const.b_vel_mag_sec
+		if g_const.b_move_frame_speed:
+			self.vel_mag = g_const.b_vel_mag_frame
+		else:
+			self.vel_mag = g_const.b_vel_mag_sec
 		
 		self.angle_range = g_const.b_angle_range
 		
-		self.b_velx = self.b_vely = 0
+		self.b_velx = self.b_vely = 0 # per frame OR per second
 		self.ball_game_state = False
 		
 		self.PLAYER_COLL_TOP = g_const.b_player_coll_top_id
@@ -40,11 +42,14 @@ class Ball():
 		event = self.create_restart_game_ev(self.MOVE_TO_RAND_P)
 		pyg.event.post(event)
 	
-	def update(self, p1, p2, events):
+	def update(self, p1, p2, events, dt):
 		self.ball_event_listener(events)
 		
 		if self.ball_game_state: # game is ongoing
-			self.b_rect.move_ip(self.b_velx, self.b_vely)
+			if g_const.b_move_frame_speed:
+				self.b_rect.move_ip(self.b_velx, self.b_vely)
+			else:
+				self.b_rect.move_ip(self.b_velx * dt, self.b_vely * dt)
 			
 			# post restart_game event if ball is completely out of bounds
 			if self.b_rect.right < 0 or self.b_rect.left > self.screen_dim.w:
@@ -71,9 +76,9 @@ class Ball():
 	
 	def ball_event_listener(self, events):
 		for event in events:
-			if event.type == g_const.GAMEREADY_ID: # reset game
+			if event.type == g_const.GAMEREADY_ID: # reset field after ball leaves bounds
 				self.ball_game_state = False
-				self.reset_ball(event.move_to_player_id)
+				self.reset_ball(event.move_to_player_id) # restart game after a player wins
 			elif event.type == g_const.GAMEWIN_ID:
 				self.reset_vel(g_const.b_move_to_rand_p_id)
 				continue
@@ -98,6 +103,7 @@ class Ball():
 		screen_h = self.screen_dim.h
 		self.set_pos(screen_w // 2, screen_h // 2 + randint(0, screen_h // 4))
 	
+	# determines which player to move to after a match starts
 	def reset_vel(self, player_id):
 		random_angle = randint(0, 45)
 		if player_id == g_const.b_move_to_rand_p_id: # ball will move towards bottom half of either player's half

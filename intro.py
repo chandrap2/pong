@@ -31,6 +31,7 @@ def main():
 		
 		if dt >= frame_length:
 			# if 1 / dt < 58: print(1 / dt)
+			# print(1 / dt)
 			start = time.time() # reset start tick
 			
 			# handle events
@@ -42,11 +43,11 @@ def main():
 			dt += time.time() - start
 			p1.update(events, dt)
 			p2.update(events, dt)
-			ball.update(p1, p2, events)
+			ball.update(p1, p2, events, dt)
 			
 			# draw background and objects
 			screen.fill((0, 0, 0))
-			pyg.draw.line(screen, game_text_color, (screen_dim.w // 2, 0), (screen_dim.w // 2, screen_dim.h), 3)
+			# pyg.draw.line(screen, game_text_color, (screen_dim.w // 2, 0), (screen_dim.w // 2, screen_dim.h), 3)
 			
 			screen.blit(p1.score_text.t_surface, p1.score_text.get_pos()) # will be right-aligned
 			screen.blit(p2.score_text.t_surface, p2.score_text.get_pos())

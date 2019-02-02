@@ -18,8 +18,10 @@ class Player():
 		self.p_surface = pyg.transform.scale(self.p_surface, (self.p_w, self.p_h))
 		self.p_rect = self.p_surface.get_rect() # pos: 0, 0
 		
-		# self.p_speed = g_const.p_speed_frame
-		self.p_speed = g_const.p_speed_sec
+		if g_const.p_move_frame_speed:
+			self.p_speed = g_const.p_speed_frame
+		else:
+			self.p_speed = g_const.p_speed_sec
 		
 		self.p_left = left
 		if not left:
@@ -52,11 +54,15 @@ class Player():
 		
 		# print(self.p_speed * dt)
 		if self.up_state:
-			# self.p_rect.move_ip((0, -self.p_speed if self.p_rect.top >= 0 else 0))
-			self.p_rect.move_ip((0, -self.p_speed * dt if self.p_rect.top >= 0 else 0))
+			if g_const.p_move_frame_speed:
+				self.p_rect.move_ip((0, -self.p_speed if self.p_rect.top >= 0 else 0))
+			else:
+				self.p_rect.move_ip((0, -self.p_speed * dt if self.p_rect.top >= 0 else 0))
 		if self.down_state:
-			# self.p_rect.move_ip((0, self.p_speed if self.p_rect.bottom < self.screen_dim.h else 0))
-			self.p_rect.move_ip((0, self.p_speed * dt if self.p_rect.bottom <= self.screen_dim.h else 0))
+			if g_const.p_move_frame_speed:
+				self.p_rect.move_ip((0, self.p_speed if self.p_rect.bottom < self.screen_dim.h else 0))
+			else:
+				self.p_rect.move_ip((0, self.p_speed * dt if self.p_rect.bottom <= self.screen_dim.h else 0))
 		
 		if self.score == g_const.winning_score and not self.pause_for_win:
 			pyg.event.post(self.create_game_won_ev(g_const.p_p1_won_id if self.p_left else g_const.p_p2_won_id))
