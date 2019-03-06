@@ -61,8 +61,12 @@ class Ball():
 				return
 			
 			# collision with players
-			if self.b_rect.colliderect(p1.p_rect): self.react_to_player_coll(p1)
-			elif self.b_rect.colliderect(p2.p_rect): self.react_to_player_coll(p2)
+			if self.b_rect.colliderect(p1.p_rect):
+				g_const.pong_noise.play()
+				self.react_to_player_coll(p1)
+			elif self.b_rect.colliderect(p2.p_rect):
+				g_const.pong_noise.play()
+				self.react_to_player_coll(p2)
 			
 			# checking for collisions with top or bottom of screen
 			first_coll_index = self.b_rect.collidelist(self.collide_rects)

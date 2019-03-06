@@ -1,4 +1,5 @@
 import pygame as pyg
+pyg.init()
 
 """ general game constants """
 fps = 120 # desired framerate
@@ -9,6 +10,7 @@ screen = pyg.display.set_mode(screen_size)
 screen_dim = screen.get_rect()
 
 face_surface = pyg.image.load("face.png").convert()
+pong_noise = pyg.mixer.Sound("4388__noisecollector__pongblipe5.wav")
 
 game_text_font = pyg.font.get_default_font()
 game_text_color = pyg.Color(100, 100, 100)
