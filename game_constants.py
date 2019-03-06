@@ -1,10 +1,10 @@
 import pygame as pyg
 
-# general game constants
+""" general game constants """
 fps = 120 # desired framerate
 frame_length = 1.0 / fps # in seconds
 
-screen_size = w, h = 320, 240
+screen_size = w, h = 640, 480#320, 240
 screen = pyg.display.set_mode(screen_size)
 screen_dim = screen.get_rect()
 
@@ -16,28 +16,28 @@ game_text_color = pyg.Color(100, 100, 100)
 winning_score = 5
 
 """ player constants """
-p_w = 17
-p_h = 75
+p_w = 34#17 
+p_h = 150#75
 
-p_move_frame_speed = True
-p_speed_frame = 2 # pixels/frame
-p_speed_sec = p_speed_frame * fps # 300 pixels/sec
+p_move_frame_speed = False
+p_speed_frame = 3 # pixels/frame
+p_speed_sec = p_speed_frame * fps
 
 p_p1_won_id = 1
 p_p2_won_id = 2
 
 """ ball constants """
-b_w = 13
-b_h = 13
+b_w = 26#13
+b_h = 26#13
 
 # stationary collision objects at top and bottom of screen
 top_rect = pyg.Rect(0, -5, screen_dim.w, 5)
 bottom_rect = pyg.Rect(0, screen_dim.h, screen_dim.w, 5)
 collide_rects = [top_rect, bottom_rect]
 
-b_move_frame_speed = True
-b_vel_mag_frame = 3 # pixels/frame
-b_vel_mag_sec = b_vel_mag_frame * fps # 360 pixels/sec
+b_move_frame_speed = False
+b_vel_mag_frame = 4 # pixels/frame
+b_vel_mag_sec = b_vel_mag_frame * fps
 b_angle_range = 60 # max angle between normal of player collided against and vel of ball
 
 b_player_coll_top_id = 1
